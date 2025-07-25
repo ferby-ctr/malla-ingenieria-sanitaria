@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Ingeniería Sanitaria</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f0f0f0;
+    }
+    .ciclo {
+      margin-bottom: 2rem;
+    }
+    .curso {
+      display: inline-block;
+      padding: 1rem;
+      background: white;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      margin: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .curso.aprobado {
+      text-decoration: line-through;
+      background: #d4edda;
+      border-color: #28a745;
+      color: #155724;
+    }
+    .curso.bloqueado {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Malla de Ingeniería Sanitaria</h1>
+  <div id="malla"></div>
+
+  <script>
+    const cursos = [
+      { id: "BRN01", nombre: "Redacción y comunicación", ciclo: 1 },
+      { id: "BQU01", nombre: "Química I", ciclo: 1 },
+      { id: "BMA03", nombre: "Álgebra Lineal", ciclo: 1 },
+      { id: "BMA01", nombre: "Cálculo Diferencial", ciclo: 1 },
+      { id: "BIC01", nombre: "Introducción a la computación", ciclo: 1 },
+      { id: "AA215", nombre: "Geología", ciclo: 1 },
+
+      { id: "SA312", nombre: "Ecología", ciclo: 2, prereq: ["BQU01"] },
+      { id: "SA401", nombre: "Química Sanitaria", ciclo: 2, prereq: ["BQU01"] },
+      { id: "BMA02", nombre: "Cálculo Integral", ciclo: 2, prereq: ["BMA01"] },
+      { id: "BEG01", nombre: "Economía General", ciclo: 2 },
+      { id: "BF101", nombre: "Física I", ciclo: 2 },
+      { id: "AA237", nombre: "Dibujo Técnico", ciclo: 2 },
+
+      { id: "SA323", nombre: "Microbiología Sanitaria I", ciclo: 3 },
+      { id: "AA243", nombre: "Fisicoquímica Aplicada", ciclo: 3, prereq: ["BMA02", "SA401"] },
+      { id: "AA241", nombre: "Cálculo Multivariable", ciclo: 3, prereq: ["BMA03", "BMA02"] },
+      { id: "AA232", nombre: "Bioestadística", ciclo: 3, prereq: ["BMA02"] },
+      { id: "AA234", nombre: "Física II", ciclo: 3, prereq: ["BF101"] },
+      { id: "BEF01", nombre: "Ética y Filosofía Política", ciclo: 3 },
+
+      { id: "SA324", nombre: "Microbiología Sanitaria II", ciclo: 4, prereq: ["SA323"] },
+      { id: "SA343", nombre: "Epidemiología y Salud Pública", ciclo: 4, prereq: ["SA323"] },
+      { id: "EC115", nombre: "Mecánica de Cuerpo Rígido", ciclo: 4, prereq: ["AA234", "BMA02"] },
+      { id: "MA153", nombre: "Ecuaciones Diferenciales", ciclo: 4, prereq: ["AA241"] },
+      { id: "F1413", nombre: "Física III", ciclo: 4, prereq: ["AA234"] },
+      { id: "RNCDH", nombre: "Realidad nacional, Constitución y Derechos Humanos", ciclo: 4 },
+
+      { id: "SA413", nombre: "Análisis de Agua y Desagüe", ciclo: 5, prereq: ["SA323"] },
+      { id: "SA467", nombre: "Manejo y Tratamiento de Residuos Sólidos", ciclo: 5, prereq: ["SA312"] },
+      { id: "HH223", nombre: "Mecánica de Fluidos I", ciclo: 5, prereq: ["AA241", "EC115"] },
+      { id: "EC125", nombre: "Resistencia de Materiales", ciclo: 5, prereq: ["EC115"] },
+      { id: "TPGRA", nombre: "Topografía", ciclo: 5, prereq: ["AA215", "AA237"] },
+
+      { id: "SA426", nombre: "Procesos Unitarios de Ingeniería Sanitaria I", ciclo: 6, prereq: ["SA323", "SA413"] },
+      { id: "SA468", nombre: "Ingeniería de Residuos Hospitalarios y Peligrosos", ciclo: 6, prereq: ["SA467"] },
+      { id: "HH224", nombre: "Mecánica de Fluidos II", ciclo: 6, prereq: ["HH223"] },
+      { id: "HH113", nombre: "Hidrología General", ciclo: 6, prereq: ["HH223"] },
+      { id: "EC611", nombre: "Tecnología de materiales", ciclo: 6, prereq: ["EC125"] },
+
+      { id: "SA427", nombre: "Procesos Unitarios de Ingeniería Sanitaria II", ciclo: 7, prereq: ["SA426"] },
+      { id: "SA416", nombre: "Saneamiento Rural", ciclo: 7, prereq: ["SA413", "HH224"] },
+      { id: "EC411", nombre: "Análisis y diseño de Estructuras Hidráulicas", ciclo: 7, prereq: ["EC125"] },
+      { id: "SA227", nombre: "Aprovechamiento de aguas subterráneas", ciclo: 7, prereq: ["HH113"] },
+      { id: "EE631", nombre: "Instalaciones Eléctricas y Automatización", ciclo: 7, prereq: ["F1413"] },
+
+      { id: "SA126", nombre: "Saneamiento Ambiental", ciclo: 8, prereq: ["SA416"] },
+      { id: "SA526", nombre: "Máquinas y Equipos Sanitarios", ciclo: 8, prereq: ["HH223"] },
+      { id: "SA215", nombre: "Abastecimiento de agua I", ciclo: 8, prereq: ["HH224", "SA227"] },
+      { id: "SA516", nombre: "Instalaciones Sanitarias en Edificaciones", ciclo: 8, prereq: ["HH224"] },
+      { id: "EC717", nombre: "Procedimiento de construcción", ciclo: 8, prereq: ["EC611"] },
+
+      { id: "SA465", nombre: "Tratamiento de desagües", ciclo: 9, prereq: ["SA427"] },
+      { id: "SA245", nombre: "Alcantarillado y drenaje pluvial", ciclo: 9, prereq: ["SA416"] },
+      { id: "SA445", nombre: "Tratamiento de agua I", ciclo: 9, prereq: ["SA215"] },
+      { id: "SA216", nombre: "Abastecimiento de agua II", ciclo: 9, prereq: ["SA215"] },
+      { id: "SA517", nombre: "Instalaciones sanitarias especiales", ciclo: 9, prereq: ["SA516"] },
+
+      { id: "SA475", nombre: "Tratamiento avanzado de aguas residuales", ciclo: 10, prereq: ["SA465"] },
+      { id: "SA446", nombre: "Tratamiento de agua II", ciclo: 10, prereq: ["SA445"] },
+      { id: "GA163", nombre: "Innovación y Tesis I", ciclo: 10, prereq: ["SA445", "SA465"] },
+      { id: "SA921", nombre: "Evaluación del Impacto Ambiental", ciclo: 10, prereq: ["SA245", "SA216"] },
+      { id: "SA235", nombre: "Análisis de redes y fuentes de agua", ciclo: 10, prereq: ["SA216", "BIC01"] },
+    ];
+
+    const malla = document.getElementById("malla");
+
+    for (let i = 1; i <= 10; i++) {
+      const div = document.createElement("div");
+      div.className = "ciclo";
+      div.innerHTML = `<h2>Ciclo ${i}</h2>`;
+
+      cursos.filter(c => c.ciclo === i).forEach(curso => {
+        const divCurso = document.createElement("div");
+        divCurso.className = "curso";
+        divCurso.dataset.id = curso.id;
+        if (curso.prereq) {
+          divCurso.dataset.prereq = curso.prereq.join(",");
+          divCurso.classList.add("bloqueado");
+        }
+        divCurso.textContent = curso.nombre;
+        div.appendChild(divCurso);
+      });
+      malla.appendChild(div);
+    }
+
+    document.addEventListener("click", e => {
+      if (!e.target.classList.contains("curso") || e.target.classList.contains("bloqueado")) return;
+
+      e.target.classList.toggle("aprobado");
+
+      const aprobados = new Set(
+        [...document.querySelectorAll(".curso.aprobado")].map(c => c.dataset.id)
+      );
+
+      document.querySelectorAll(".curso").forEach(curso => {
+        const prereq = curso.dataset.prereq?.split(",") || [];
+        if (prereq.length === 0) return;
+
+        const desbloqueado = prereq.every(p => aprobados.has(p));
+        if (desbloqueado) {
+          curso.classList.remove("bloqueado");
+        } else {
+          if (!curso.classList.contains("aprobado")) {
+            curso.classList.add("bloqueado");
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
