@@ -259,7 +259,7 @@
         const progressCreditsText = document.getElementById('progress-credits-text');
 
         const aprobados = new Set(JSON.parse(localStorage.getItem("aprobados") || "[]"));
-        const totalRamos = ramos.length; 
+        const totalRamos = ramos.length;
         const totalCreditosCarrera = 215; // Total de créditos para la carrera
         const creditosParaTitulo = 220; // Total de créditos para el título (215 de malla + 5 adicionales)
 
@@ -312,35 +312,47 @@
             calculateCurrentCreditosMallaAprobados(); // Calcular créditos al inicio del renderizado
             const carreraCompletaMalla = currentCreditosMallaAprobados >= totalCreditosCarrera;
 
+            // Nueva lógica para verificar si los ciclos 1 al 4 están completos
+            let ciclosAnterioresCompletos = true;
+            for (let i = 1; i <= 4; i++) {
+                const ramosEnCiclo = ramos.filter(r => r.ciclo === i);
+                const todosAprobadosEnCiclo = ramosEnCiclo.every(ramo => aprobados.has(ramo.id));
+                if (!todosAprobadosEnCiclo) {
+                    ciclosAnterioresCompletos = false;
+                    break;
+                }
+            }
+
             container.innerHTML = '';
             for (let i = 1; i <= 12; i++) {
                 const cicloDiv = document.createElement("div");
                 cicloDiv.className = "ciclo";
-                cicloDiv.innerHTML = 
-    i === 11 ? "<h2>Electivos de Especialidad</h2>" :
-    i === 12 ? "<h2>Electivos Complementarios</h2>" :
-    "<h2>Ciclo " + i + "</h2>";
+                cicloDiv.innerHTML =
+                    i === 11 ? "<h2>Electivos de Especialidad</h2>" :
+                    i === 12 ? "<h2>Electivos Complementarios</h2>" :
+                    "<h2>Ciclo " + i + "</h2>";
                 ramos.filter(r => r.ciclo === i).forEach(ramo => {
                     const btn = document.createElement("button");
-                    btn.textContent = ramo.nombre;
+                    btn.textContent = `${ramo.nombre} (${ramo.creditos} créditos)`; // Mostrar créditos
                     btn.className = "ramo";
                     btn.id = ramo.id;
-                    
+
                     const yaAprobado = aprobados.has(ramo.id);
                     const puedeAprobarRequisitos = ramo.requisitos.length === 0 || ramo.requisitos.every(req => aprobados.has(req));
-                    
-                    // Lógica para deshabilitar:
-                    // 1. Si ya está aprobado, siempre se puede desaprobar.
-                    // 2. Si la malla está completa (créditos >= 215) y el curso no está aprobado, deshabilitar.
-                    // 3. Si no cumple los requisitos previos y no está aprobado, deshabilitar.
-                    const shouldBeDisabled = !yaAprobado && (carreraCompletaMalla || !puedeAprobarRequisitos);
+
+                    let shouldBeDisabled = !yaAprobado && (carreraCompletaMalla || !puedeAprobarRequisitos);
+
+                    // Lógica específica para electivos: deshabilitar si los ciclos anteriores no están completos
+                    if ((ramo.ciclo === 11 || ramo.ciclo === 12) && !ciclosAnterioresCompletos && !yaAprobado) {
+                        shouldBeDisabled = true;
+                    }
 
                     btn.disabled = shouldBeDisabled;
-                    
+
                     if (yaAprobado) {
                         btn.classList.add("aprobado");
                     }
-                    
+
                     btn.onclick = () => {
                         if (yaAprobado) {
                             // Si el curso ya está aprobado, desaprobarlo
@@ -354,6 +366,11 @@
                         } else {
                             // Si el curso no está aprobado y sus requisitos sí, y la malla no está completa, aprobarlo
                             if (puedeAprobarRequisitos && !carreraCompletaMalla) {
+                                // Verificar la condición de electivos antes de aprobar
+                                if ((ramo.ciclo === 11 || ramo.ciclo === 12) && !ciclosAnterioresCompletos) {
+                                    alert("Debes completar todos los cursos hasta el Ciclo 4 (inclusive) para poder seleccionar cursos electivos.");
+                                    return;
+                                }
                                 aprobados.add(ramo.id);
                                 btn.animate([{transform: "scale(1)"}, {transform: "scale(1.05)"}, {transform: "scale(1)"}], {
                                     duration: 300
@@ -373,8 +390,8 @@
                 });
                 container.appendChild(cicloDiv);
             }
-            updateProgressBar(); 
-            updateCreditsProgressBar(); 
+            updateProgressBar();
+            updateCreditsProgressBar();
         }
 
         document.getElementById("resetBtn").onclick = () => {
@@ -385,7 +402,7 @@
             }
         };
 
-        render(); 
+        render();
     </script>
 </body>
 </html>
