@@ -123,7 +123,7 @@
             font-size: 0.9rem;
             transition: width 0.8s ease-out;
         }
-        #progress-text {
+        #progress-credits-text {
             font-size: 1.1rem;
             color: #333;
             margin-top: 10px;
@@ -146,7 +146,7 @@
         <div class="progress-bar-container">
             <div id="progressBar" class="progress-bar">0%</div>
         </div>
-        <p id="progress-text">0 de 0 cursos aprobados (0%)</p>
+        <p id="progress-credits-text">0 de 215 créditos aprobados (0%)</p>
         <p id="motivation-message">¡Comienza a marcar tus cursos para ver tu avance!</p>
     </div>
 
@@ -155,122 +155,138 @@
     <script>
         const ramos = [
             // 1er Ciclo
-            {"id": "BRC01", "nombre": "Redacción y comunicación", "ciclo": 1, "requisitos": []},
-            {"id": "BQU01", "nombre": "Química I", "ciclo": 1, "requisitos": []},
-            {"id": "BMA03", "nombre": "Álgebra Lineal", "ciclo": 1, "requisitos": []},
-            {"id": "BMA01", "nombre": "Cálculo Diferencial", "ciclo": 1, "requisitos": []},
-            {"id": "BIC01", "nombre": "Introducción a la computación", "ciclo": 1, "requisitos": []},
-            {"id": "AA215", "nombre": "Geología", "ciclo": 1, "requisitos": []},
+            {"id": "BRC01", "nombre": "Redacción y comunicación", "ciclo": 1, "requisitos": [], "creditos": 2},
+            {"id": "BQU01", "nombre": "Química I", "ciclo": 1, "requisitos": [], "creditos": 5},
+            {"id": "BMA03", "nombre": "Álgebra Lineal", "ciclo": 1, "requisitos": [], "creditos": 4},
+            {"id": "BMA01", "nombre": "Cálculo Diferencial", "ciclo": 1, "requisitos": [], "creditos": 5},
+            {"id": "BIC01", "nombre": "Introducción a la computación", "ciclo": 1, "requisitos": [], "creditos": 2},
+            {"id": "AA215", "nombre": "Geología", "ciclo": 1, "requisitos": [], "creditos": 3},
 
             // 2do Ciclo
-            {"id": "SA312", "nombre": "Ecología", "ciclo": 2, "requisitos": ["BQU01"]},
-            {"id": "SA401", "nombre": "Química Sanitaria", "ciclo": 2, "requisitos": ["BQU01"]},
-            {"id": "BMA02", "nombre": "Cálculo Integral", "ciclo": 2, "requisitos": ["BMA01"]},
-            {"id": "BEG01", "nombre": "Economía General", "ciclo": 2, "requisitos": []},
-            {"id": "BF101", "nombre": "Física I", "ciclo": 2, "requisitos": []},
-            {"id": "AA237", "nombre": "Dibujo Técnico", "ciclo": 2, "requisitos": []},
+            {"id": "SA312", "nombre": "Ecología", "ciclo": 2, "requisitos": ["BQU01"], "creditos": 2},
+            {"id": "SA401", "nombre": "Química Sanitaria", "ciclo": 2, "requisitos": ["BQU01"], "creditos": 3},
+            {"id": "BMA02", "nombre": "Cálculo Integral", "ciclo": 2, "requisitos": ["BMA01"], "creditos": 5},
+            {"id": "BEG01", "nombre": "Economía General", "ciclo": 2, "requisitos": [], "creditos": 3},
+            {"id": "BF101", "nombre": "Física I", "ciclo": 2, "requisitos": [], "creditos": 5},
+            {"id": "AA237", "nombre": "Dibujo Técnico", "ciclo": 2, "requisitos": [], "creditos": 2},
 
             // 3er Ciclo
-            {"id": "SA323", "nombre": "Microbiología Sanitaria I", "ciclo": 3, "requisitos": []},
-            {"id": "AA243", "nombre": "Fisicoquímica Aplicada", "ciclo": 3, "requisitos": ["BMA02", "SA401"]},
-            {"id": "AA241", "nombre": "Cálculo Multivariable", "ciclo": 3, "requisitos": ["BMA03", "BMA02"]},
-            {"id": "AA232", "nombre": "Bioestadística", "ciclo": 3, "requisitos": ["BMA02"]},
-            {"id": "AA234", "nombre": "Física II", "ciclo": 3, "requisitos": ["BF101"]},
-            {"id": "BEF01", "nombre": "Ética y Filosofía Política", "ciclo": 3, "requisitos": []},
+            {"id": "SA323", "nombre": "Microbiología Sanitaria I", "ciclo": 3, "requisitos": [], "creditos": 5},
+            {"id": "AA243", "nombre": "Fisicoquímica Aplicada", "ciclo": 3, "requisitos": ["BMA02", "SA401"], "creditos": 3},
+            {"id": "AA241", "nombre": "Cálculo Multivariable", "ciclo": 3, "requisitos": ["BMA03", "BMA02"], "creditos": 4},
+            {"id": "AA232", "nombre": "Bioestadística", "ciclo": 3, "requisitos": ["BMA02"], "creditos": 4},
+            {"id": "AA234", "nombre": "Física II", "ciclo": 3, "requisitos": ["BF101"], "creditos": 4},
+            {"id": "BEF01", "nombre": "Ética y Filosofía Política", "ciclo": 3, "requisitos": [], "creditos": 2},
 
             // 4to Ciclo
-            {"id": "SA324", "nombre": "Microbiología Sanitaria II", "ciclo": 4, "requisitos": ["SA323"]},
-            {"id": "SA343", "nombre": "Epidemiología y Salud Pública", "ciclo": 4, "requisitos": ["SA323"]},
-            {"id": "EC115", "nombre": "Mecánica de Cuerpo Rígido", "ciclo": 4, "requisitos": ["AA234", "BMA02"]},
-            {"id": "MA153", "nombre": "Ecuaciones Diferenciales", "ciclo": 4, "requisitos": ["AA241"]},
-            {"id": "F1413", "nombre": "Física III", "ciclo": 4, "requisitos": ["AA234"]},
-            {"id": "BRN01", "nombre": "Realidad nacional, Constitución y DDHH", "ciclo": 4, "requisitos": []},
+            {"id": "SA324", "nombre": "Microbiología Sanitaria II", "ciclo": 4, "requisitos": ["SA323"], "creditos": 3},
+            {"id": "SA343", "nombre": "Epidemiología y Salud Pública", "ciclo": 4, "requisitos": ["SA323"], "creditos": 3},
+            {"id": "EC115", "nombre": "Mecánica de Cuerpo Rígido", "ciclo": 4, "requisitos": ["AA234", "BMA02"], "creditos": 4},
+            {"id": "MA153", "nombre": "Ecuaciones Diferenciales", "ciclo": 4, "requisitos": ["AA241"], "creditos": 4},
+            {"id": "F1413", "nombre": "Física III", "ciclo": 4, "requisitos": ["AA234"], "creditos": 3},
+            {"id": "BRN01", "nombre": "Realidad nacional, Constitución y DDHH", "ciclo": 4, "requisitos": [], "creditos": 3},
 
             // 5to Ciclo
-            {"id": "SA413", "nombre": "Análisis de Agua y Desagüe", "ciclo": 5, "requisitos": ["SA323"]},
-            {"id": "SA467", "nombre": "Manejo y Trat. de Residuos Sólidos", "ciclo": 5, "requisitos": ["SA312", "SA323"]}, // Added SA323 as per list
-            {"id": "HH223", "nombre": "Mecánica de Fluidos I", "ciclo": 5, "requisitos": ["AA241", "EC115"]},
-            {"id": "EC125", "nombre": "Resistencia de Materiales", "ciclo": 5, "requisitos": ["EC115"]},
-            {"id": "AA215T", "nombre": "Topografía", "ciclo": 5, "requisitos": ["AA215", "AA237"]},
+            {"id": "SA413", "nombre": "Análisis de Agua y Desagüe", "ciclo": 5, "requisitos": ["SA323"], "creditos": 6},
+            {"id": "SA467", "nombre": "Manejo y Trat. de Residuos Sólidos", "ciclo": 5, "requisitos": ["SA312", "SA323"], "creditos": 3},
+            {"id": "HH223", "nombre": "Mecánica de Fluidos I", "ciclo": 5, "requisitos": ["AA241", "EC115"], "creditos": 4},
+            {"id": "EC125", "nombre": "Resistencia de Materiales", "ciclo": 5, "requisitos": ["EC115"], "creditos": 5},
+            {"id": "AA215T", "nombre": "Topografía", "ciclo": 5, "requisitos": ["AA215", "AA237"], "creditos": 4},
 
             // 6to Ciclo
-            {"id": "SA426", "nombre": "Procesos Unitarios I", "ciclo": 6, "requisitos": ["SA323", "SA413"]},
-            {"id": "SA468", "nombre": "Residuos Hospitalarios y Peligrosos", "ciclo": 6, "requisitos": ["SA467"]},
-            {"id": "HH224", "nombre": "Mecánica de Fluidos II", "ciclo": 6, "requisitos": ["HH223"]},
-            {"id": "HH113", "nombre": "Hidrología General", "ciclo": 6, "requisitos": ["HH223"]},
-            {"id": "EC611", "nombre": "Tecnología de Materiales", "ciclo": 6, "requisitos": ["EC125"]},
+            {"id": "SA426", "nombre": "Procesos Unitarios en Ingenieria Sanitaria I", "ciclo": 6, "requisitos": ["SA323", "SA413"], "creditos": 3},
+            {"id": "SA468", "nombre": "Ingenieria de Residuos Hospitalarios y Peligrosos", "ciclo": 6, "requisitos": ["SA467"], "creditos": 4},
+            {"id": "HH224", "nombre": "Mecánica de Fluidos II", "ciclo": 6, "requisitos": ["HH223"], "creditos": 4},
+            {"id": "HH113", "nombre": "Hidrología General", "ciclo": 6, "requisitos": ["HH223"], "creditos": 3},
+            {"id": "EC611", "nombre": "Tecnología de Materiales", "ciclo": 6, "requisitos": ["EC125"], "creditos": 4},
 
             // 7mo Ciclo
-            {"id": "SA427", "nombre": "Procesos Unitarios II", "ciclo": 7, "requisitos": ["SA426"]},
-            {"id": "SA116", "nombre": "Saneamiento Rural", "ciclo": 7, "requisitos": ["SA413", "HH224"]},
-            {"id": "EC411", "nombre": "Diseño de Estruct. Hidráulicas", "ciclo": 7, "requisitos": ["EC125"]},
-            {"id": "SA227", "nombre": "Aprovechamiento Aguas Subterráneas", "ciclo": 7, "requisitos": ["HH113"]},
-            {"id": "EE631", "nombre": "Instalaciones Eléctricas y Automatización", "ciclo": 7, "requisitos": ["F1413"]},
+            {"id": "SA427", "nombre": "Procesos Unitarios en Ingenieria Sanitaria II", "ciclo": 7, "requisitos": ["SA426"], "creditos": 3},
+            {"id": "SA116", "nombre": "Saneamiento Rural", "ciclo": 7, "requisitos": ["SA413", "HH224"], "creditos": 4},
+            {"id": "EC411", "nombre": "Analisis y Diseño de Estruct. Hidráulicas", "ciclo": 7, "requisitos": ["EC125"], "creditos": 5},
+            {"id": "SA227", "nombre": "Aprovechamiento Aguas Subterráneas", "ciclo": 7, "requisitos": ["HH113"], "creditos": 4},
+            {"id": "EE631", "nombre": "Instalaciones Eléctricas y Automatización", "ciclo": 7, "requisitos": ["F1413"], "creditos": 3},
 
             // 8vo Ciclo
-            {"id": "SA126", "nombre": "Saneamiento Ambiental", "ciclo": 8, "requisitos": ["SA116"]},
-            {"id": "SA526", "nombre": "Máquinas y Equipos Sanitarios", "ciclo": 8, "requisitos": ["HH223"]},
-            {"id": "SA215", "nombre": "Abastecimiento de Agua I", "ciclo": 8, "requisitos": ["HH224", "SA227"]},
-            {"id": "SA516", "nombre": "Instalaciones Sanitarias en Edificaciones", "ciclo": 8, "requisitos": ["HH224"]},
-            {"id": "EC717", "nombre": "Procedimiento de Construcción", "ciclo": 8, "requisitos": ["EC611"]},
+            {"id": "SA126", "nombre": "Saneamiento Ambiental", "ciclo": 8, "requisitos": ["SA116"], "creditos": 4},
+            {"id": "SA526", "nombre": "Máquinas y Equipos Sanitarios", "ciclo": 8, "requisitos": ["HH223"], "creditos": 3},
+            {"id": "SA215", "nombre": "Abastecimiento de Agua I", "ciclo": 8, "requisitos": ["HH224", "SA227"], "creditos": 4},
+            {"id": "SA516", "nombre": "Instalaciones Sanitarias en Edificaciones", "ciclo": 8, "requisitos": ["HH224"], "creditos": 4},
+            {"id": "EC717", "nombre": "Procedimiento de Construcción", "ciclo": 8, "requisitos": ["EC611"], "creditos": 4},
 
             // 9no Ciclo
-            {"id": "SA465", "nombre": "Tratamiento de Desagües", "ciclo": 9, "requisitos": ["SA427"]},
-            {"id": "SA245", "nombre": "Alcantarillado y Drenaje Pluvial", "ciclo": 9, "requisitos": ["SA215"]},
-            {"id": "SA445", "nombre": "Tratamiento de Agua I", "ciclo": 9, "requisitos": ["SA215"]},
-            {"id": "SA216", "nombre": "Abastecimiento de Agua II", "ciclo": 9, "requisitos": ["SA215"]},
-            {"id": "SA517", "nombre": "Instalaciones Sanitarias Especiales", "ciclo": 9, "requisitos": ["SA516"]},
+            {"id": "SA465", "nombre": "Tratamiento de Desagües", "ciclo": 9, "requisitos": ["SA427"], "creditos": 4},
+            {"id": "SA245", "nombre": "Alcantarillado y Drenaje Pluvial", "ciclo": 9, "requisitos": ["SA215"], "creditos": 4},
+            {"id": "SA445", "nombre": "Tratamiento de Agua I", "ciclo": 9, "requisitos": ["SA215"], "creditos": 4},
+            {"id": "SA216", "nombre": "Abastecimiento de Agua II", "ciclo": 9, "requisitos": ["SA215"], "creditos": 4},
+            {"id": "SA517", "nombre": "Instalaciones Sanitarias Especiales", "ciclo": 9, "requisitos": ["SA516"], "creditos": 3},
 
             // 10mo Ciclo
-            {"id": "SA475", "nombre": "Tratamiento Avanzado de Aguas Residuales", "ciclo": 10, "requisitos": ["SA465"]},
-            {"id": "SA446", "nombre": "Tratamiento de Agua II", "ciclo": 10, "requisitos": ["SA445"]},
-            {"id": "GA163", "nombre": "Innovación y Tesis I", "ciclo": 10, "requisitos": ["SA445", "SA465"]},
-            {"id": "SA921", "nombre": "Evaluación del Impacto Ambiental", "ciclo": 10, "requisitos": ["SA245", "SA216"]},
-            {"id": "SA235", "nombre": "Análisis de Redes y Fuentes de Agua", "ciclo": 10, "requisitos": ["SA216", "BIC01"]},
+            {"id": "SA475", "nombre": "Tratamiento Avanzado de Aguas Residuales", "ciclo": 10, "requisitos": ["SA465"], "creditos": 3},
+            {"id": "SA446", "nombre": "Tratamiento de Agua II", "ciclo": 10, "requisitos": ["SA445"], "creditos": 3},
+            {"id": "GA163", "nombre": "Innovación y Tesis I", "ciclo": 10, "requisitos": ["SA445", "SA465"], "creditos": 4},
+            {"id": "SA921", "nombre": "Evaluación del Impacto Ambiental", "ciclo": 10, "requisitos": ["SA245", "SA216"], "creditos": 3},
+            {"id": "SA235", "nombre": "Análisis de Redes y Fuentes de Agua", "ciclo": 10, "requisitos": ["SA216", "BIC01"], "creditos": 3},
 
             // Electivos de la especialidad
-            {"id": "AA214", "nombre": "Recursos Naturales", "ciclo": 11, "requisitos": ["SA312"], "tipo": "electivo"},
-            {"id": "AU411", "nombre": "Planeamiento Urbano y Regional", "ciclo": 11, "requisitos": []},
-            {"id": "PA135", "nombre": "Programación de Obras", "ciclo": 11, "requisitos": ["EC717"]},
-            {"id": "SA135", "nombre": "Higiene Alimentaria", "ciclo": 11, "requisitos": ["SA126"]},
-            {"id": "SA172", "nombre": "Contaminación Ambiental", "ciclo": 11, "requisitos": ["SA116"]},
-            {"id": "SA266", "nombre": "Tarifas en Ingeniería Sanitaria", "ciclo": 11, "requisitos": ["SA427"]},
-            {"id": "SA275", "nombre": "Operaciones, Mantenimiento y Gerencia de Proyectos", "ciclo": 11, "requisitos": ["SA216"]},
-            {"id": "SA447", "nombre": "Tratamiento Avanzado de Agua Potable", "ciclo": 11, "requisitos": ["SA445"]},
-            {"id": "SA466", "nombre": "Tratamiento de Desechos Industriales", "ciclo": 11, "requisitos": ["SA245"]},
-            {"id": "SA818", "nombre": "Costos y Presupuestos", "ciclo": 11, "requisitos": ["EC717"]},
-            {"id": "SA828", "nombre": "Supervisión de Obras", "ciclo": 11, "requisitos": ["EC717", "SA216"]},
-            {"id": "SA923", "nombre": "Prevención contra Desastres Naturales", "ciclo": 11, "requisitos": ["SA116", "SA312"]},
+            {"id": "AA214", "nombre": "Recursos Naturales", "ciclo": 11, "requisitos": ["SA312"], "tipo": "electivo", "creditos": 2},
+            {"id": "AU411", "nombre": "Planeamiento Urbano y Regional", "ciclo": 11, "requisitos": [], "creditos": 3},
+            {"id": "PA135", "nombre": "Programación de Obras", "ciclo": 11, "requisitos": ["EC717"], "creditos": 3},
+            {"id": "SA135", "nombre": "Higiene Alimentaria", "ciclo": 11, "requisitos": ["SA126"], "creditos": 4},
+            {"id": "SA172", "nombre": "Contaminación Ambiental", "ciclo": 11, "requisitos": ["SA116"], "creditos": 4},
+            {"id": "SA266", "nombre": "Tarifas en Ingeniería Sanitaria", "ciclo": 11, "requisitos": ["SA427"], "creditos": 4},
+            {"id": "SA275", "nombre": "Operaciones, Mantenimiento y Gerencia de Proyectos", "ciclo": 11, "requisitos": ["SA216"], "creditos": 4},
+            {"id": "SA447", "nombre": "Tratamiento Avanzado de Agua Potable", "ciclo": 11, "requisitos": ["SA445"], "creditos": 3},
+            {"id": "SA466", "nombre": "Tratamiento de Desechos Industriales", "ciclo": 11, "requisitos": ["SA245"], "creditos": 3},
+            {"id": "SA818", "nombre": "Costos y Presupuestos", "ciclo": 11, "requisitos": ["EC717"], "creditos": 3},
+            {"id": "SA828", "nombre": "Supervisión de Obras", "ciclo": 11, "requisitos": ["EC717", "SA216"], "creditos": 4},
+            {"id": "SA923", "nombre": "Prevención contra Desastres Naturales", "ciclo": 11, "requisitos": ["SA116", "SA312"], "creditos": 2},
 
             // Electivos complementarios  
-            {"id": "AA218", "nombre": "Sociología", "ciclo": 12, "requisitos": []},
-            {"id": "AHD85", "nombre": "Informes Técnicos", "ciclo": 12, "requisitos": []},
-            {"id": "PA140", "nombre": "Gestión Empresarial", "ciclo": 12, "requisitos": ["BEG01", "BRN01"]},
-            {"id": "AS920", "nombre": "Aprovechamiento de Recursos Hídricos", "ciclo": 12, "requisitos": ["SA216"]},
-            {"id": "EC511", "nombre": "Mecánica de Suelos I", "ciclo": 12, "requisitos": ["AA215"]},
-            {"id": "EE342", "nombre": "Instalaciones Eléctricas Interiores", "ciclo": 12, "requisitos": ["F1413"]},
-            {"id": "MA074", "nombre": "Matemática Financiera", "ciclo": 12, "requisitos": ["BMA02"]},
-            {"id": "PA425", "nombre": "Diseño y Evaluación de Proyectos", "ciclo": 12, "requisitos": ["BEG01", "MA074"]}
+            {"id": "AA218", "nombre": "Sociología", "ciclo": 12, "requisitos": [], "creditos": 2},
+            {"id": "AHD85", "nombre": "Informes Técnicos", "ciclo": 12, "requisitos": [], "creditos": 2},
+            {"id": "PA140", "nombre": "Gestión Empresarial", "ciclo": 12, "requisitos": ["BEG01", "BRN01"], "creditos": 3},
+            {"id": "AS920", "nombre": "Aprovechamiento de Recursos Hídricos", "ciclo": 12, "requisitos": ["SA216"], "creditos": 4},
+            {"id": "EC511", "nombre": "Mecánica de Suelos I", "ciclo": 12, "requisitos": ["AA215"], "creditos": 4},
+            {"id": "EE342", "nombre": "Instalaciones Eléctricas Interiores", "ciclo": 12, "requisitos": ["F1413"], "creditos": 3},
+            {"id": "MA074", "nombre": "Matemática Financiera", "ciclo": 12, "requisitos": ["BMA02"], "creditos": 3},
+            {"id": "PA425", "nombre": "Diseño y Evaluación de Proyectos", "ciclo": 12, "requisitos": ["BEG01", "MA074"], "creditos": 4}
         ];
 
         const container = document.getElementById('container');
         const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progress-text');
         const motivationMessage = document.getElementById('motivation-message');
+        const progressCreditsText = document.getElementById('progress-credits-text');
 
         const aprobados = new Set(JSON.parse(localStorage.getItem("aprobados") || "[]"));
-        const totalRamos = ramos.length;
+        const totalRamos = ramos.length; 
+        const totalCreditosCarrera = 215; // Total de créditos para la carrera
+        const creditosParaTitulo = 220; // Total de créditos para el título (215 de malla + 5 adicionales)
+
+        // Variable para almacenar los créditos actuales aprobados de la malla
+        let currentCreditosMallaAprobados = 0;
+
+        function calculateCurrentCreditosMallaAprobados() {
+            let sumCreditos = 0;
+            aprobados.forEach(ramoId => {
+                const ramo = ramos.find(r => r.id === ramoId);
+                if (ramo) {
+                    sumCreditos += ramo.creditos;
+                }
+            });
+            currentCreditosMallaAprobados = sumCreditos;
+        }
 
         function updateProgressBar() {
-            const ramosAprobadosCount = aprobados.size;
-            const percentage = totalRamos > 0 ? Math.round((ramosAprobadosCount / totalRamos) * 100) : 0;
+            // La barra de progreso visual sigue basándose en los 215 créditos de la malla
+            const percentage = totalCreditosCarrera > 0 ? Math.round((currentCreditosMallaAprobados / totalCreditosCarrera) * 100) : 0;
 
             progressBar.style.width = `${percentage}%`;
             progressBar.textContent = `${percentage}%`;
-            progressText.textContent = `${ramosAprobadosCount} de ${totalRamos} cursos aprobados (${percentage}%)`;
 
-            if (percentage === 100) {
-                motivationMessage.textContent = "¡Felicidades! Has completado todos los cursos de tu carrera (incluyendo electivos). ¡Eres un Ingeniero Sanitario!";
+            // Lógica para el mensaje de motivación
+            if (currentCreditosMallaAprobados >= totalCreditosCarrera) {
+                motivationMessage.textContent = "¡Felicidades! Has completado todos los créditos de la malla. Ya casi eres Ingeniero Sanitario, solo te faltan 5 créditos que podrás conseguir por tus horas extracurriculares, idiomas y prácticas.";
                 progressBar.style.background = 'linear-gradient(to right, #28a745, #218838)'; // Verde más oscuro al completar
             } else if (percentage >= 75) {
                 motivationMessage.textContent = "¡Estás en la recta final! Sigue así, la meta está cerca.";
@@ -279,7 +295,7 @@
                 motivationMessage.textContent = "¡Más de la mitad del camino recorrido! Vas muy bien.";
                 progressBar.style.background = 'linear-gradient(to right, #4CAF50, #8BC34A)';
             } else if (percentage > 0) {
-                motivationMessage.textContent = "Cada curso te acerca más a tu objetivo. ¡No te rindas!";
+                motivationMessage.textContent = "Cada crédito te acerca más a tu objetivo. ¡No te rindas!";
                 progressBar.style.background = 'linear-gradient(to right, #4CAF50, #8BC34A)';
             } else {
                 motivationMessage.textContent = "¡Comienza a marcar tus cursos para ver tu avance!";
@@ -287,7 +303,15 @@
             }
         }
 
+        function updateCreditsProgressBar() {
+            const percentageCreditos = totalCreditosCarrera > 0 ? Math.round((currentCreditosMallaAprobados / totalCreditosCarrera) * 100) : 0;
+            progressCreditsText.textContent = `${currentCreditosMallaAprobados} de ${totalCreditosCarrera} créditos aprobados (${percentageCreditos}%)`;
+        }
+
         function render() {
+            calculateCurrentCreditosMallaAprobados(); // Calcular créditos al inicio del renderizado
+            const carreraCompletaMalla = currentCreditosMallaAprobados >= totalCreditosCarrera;
+
             container.innerHTML = '';
             for (let i = 1; i <= 12; i++) {
                 const cicloDiv = document.createElement("div");
@@ -302,17 +326,23 @@
                     btn.className = "ramo";
                     btn.id = ramo.id;
                     
-                    // Verificar si los requisitos están aprobados
-                    const puedeAprobar = ramo.requisitos.length === 0 || ramo.requisitos.every(req => aprobados.has(req));
+                    const yaAprobado = aprobados.has(ramo.id);
+                    const puedeAprobarRequisitos = ramo.requisitos.length === 0 || ramo.requisitos.every(req => aprobados.has(req));
                     
-                    btn.disabled = !aprobados.has(ramo.id) && !puedeAprobar;
+                    // Lógica para deshabilitar:
+                    // 1. Si ya está aprobado, siempre se puede desaprobar.
+                    // 2. Si la malla está completa (créditos >= 215) y el curso no está aprobado, deshabilitar.
+                    // 3. Si no cumple los requisitos previos y no está aprobado, deshabilitar.
+                    const shouldBeDisabled = !yaAprobado && (carreraCompletaMalla || !puedeAprobarRequisitos);
+
+                    btn.disabled = shouldBeDisabled;
                     
-                    if (aprobados.has(ramo.id)) {
+                    if (yaAprobado) {
                         btn.classList.add("aprobado");
                     }
                     
                     btn.onclick = () => {
-                        if (aprobados.has(ramo.id)) {
+                        if (yaAprobado) {
                             // Si el curso ya está aprobado, desaprobarlo
                             aprobados.delete(ramo.id);
                             // También desaprobar cualquier curso que dependa de este
@@ -322,15 +352,18 @@
                                 }
                             });
                         } else {
-                            // Si el curso no está aprobado y sus requisitos sí, aprobarlo
-                            if (puedeAprobar) {
+                            // Si el curso no está aprobado y sus requisitos sí, y la malla no está completa, aprobarlo
+                            if (puedeAprobarRequisitos && !carreraCompletaMalla) {
                                 aprobados.add(ramo.id);
                                 btn.animate([{transform: "scale(1)"}, {transform: "scale(1.05)"}, {transform: "scale(1)"}], {
                                     duration: 300
                                 });
+                            } else if (carreraCompletaMalla) {
+                                alert("Has completado los créditos de la malla. Los 5 créditos restantes se obtienen por horas extracurriculares, idiomas y prácticas.");
+                                return;
                             } else {
                                 alert("Debes aprobar los requisitos previos para este curso.");
-                                return; // No hacer nada si no cumple los requisitos
+                                return;
                             }
                         }
                         localStorage.setItem("aprobados", JSON.stringify([...aprobados]));
@@ -340,7 +373,8 @@
                 });
                 container.appendChild(cicloDiv);
             }
-            updateProgressBar(); // Actualizar la barra de progreso después de renderizar los cursos
+            updateProgressBar(); 
+            updateCreditsProgressBar(); 
         }
 
         document.getElementById("resetBtn").onclick = () => {
@@ -351,7 +385,7 @@
             }
         };
 
-        render(); // Renderizar la malla y la barra de progreso al cargar la página
+        render(); 
     </script>
 </body>
 </html>
