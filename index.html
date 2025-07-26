@@ -153,7 +153,82 @@
     <div id="container"></div>
 
     <script>
-        const ramos = [{"id": "BRN01", "nombre": "Redacción y comunicación", "ciclo": 1, "requisitos": []}, {"id": "BQU01", "nombre": "Química I", "ciclo": 1, "requisitos": []}, {"id": "BMA03", "nombre": "Álgebra Lineal", "ciclo": 1, "requisitos": []}, {"id": "BMA01", "nombre": "Cálculo Diferencial", "ciclo": 1, "requisitos": []}, {"id": "BIC01", "nombre": "Introducción a la computación", "ciclo": 1, "requisitos": []}, {"id": "AA215G", "nombre": "Geología", "ciclo": 1, "requisitos": []}, {"id": "SA312", "nombre": "Ecología", "ciclo": 2, "requisitos": ["BQU01"]}, {"id": "SA401", "nombre": "Química Sanitaria", "ciclo": 2, "requisitos": ["BQU01"]}, {"id": "BMA02", "nombre": "Cálculo Integral", "ciclo": 2, "requisitos": ["BMA01"]}, {"id": "BEG01", "nombre": "Economía General", "ciclo": 2, "requisitos": []}, {"id": "BF101", "nombre": "Física I", "ciclo": 2, "requisitos": []}, {"id": "AA237", "nombre": "Dibujo Técnico", "ciclo": 2, "requisitos": []}, {"id": "SA323", "nombre": "Microbiología Sanitaria I", "ciclo": 3, "requisitos": []}, {"id": "AA243", "nombre": "Fisicoquímica Aplicada", "ciclo": 3, "requisitos": ["BMA02", "SA401"]}, {"id": "AA241", "nombre": "Cálculo Multivariable", "ciclo": 3, "requisitos": ["BMA03", "BMA02"]}, {"id": "AA232", "nombre": "Bioestadística", "ciclo": 3, "requisitos": ["BMA02"]}, {"id": "AA234", "nombre": "Física II", "ciclo": 3, "requisitos": ["BF101"]}, {"id": "BEF01", "nombre": "Ética y Filosofía Política", "ciclo": 3, "requisitos": []}, {"id": "SA324", "nombre": "Microbiología Sanitaria II", "ciclo": 4, "requisitos": ["SA323"]}, {"id": "SA343", "nombre": "Epidemiología y Salud Pública", "ciclo": 4, "requisitos": ["SA323"]}, {"id": "EC115", "nombre": "Mecánica de Cuerpo Rígido", "ciclo": 4, "requisitos": ["AA234", "BMA02"]}, {"id": "MA153", "nombre": "Ecuaciones Diferenciales", "ciclo": 4, "requisitos": ["AA241"]}, {"id": "F1413", "nombre": "Física III", "ciclo": 4, "requisitos": ["AA234"]}, {"id": "BRN02", "nombre": "Realidad nacional, Constitución y DDHH", "ciclo": 4, "requisitos": []}, {"id": "SA413", "nombre": "Análisis de Agua y Desagüe", "ciclo": 5, "requisitos": ["SA323"]}, {"id": "SA467", "nombre": "Manejo y Trat. de Residuos Sólidos", "ciclo": 5, "requisitos": ["SA312"]}, {"id": "HH223", "nombre": "Mecánica de Fluidos I", "ciclo": 5, "requisitos": ["AA241", "EC115"]}, {"id": "EC125", "nombre": "Resistencia de Materiales", "ciclo": 5, "requisitos": ["EC115"]}, {"id": "AA215T", "nombre": "Topografía", "ciclo": 5, "requisitos": ["AA215G", "AA237"]}, {"id": "SA426", "nombre": "Procesos Unitarios I", "ciclo": 6, "requisitos": ["SA323", "SA413"]}, {"id": "SA468", "nombre": "Residuos Hospitalarios y Peligrosos", "ciclo": 6, "requisitos": ["SA467"]}, {"id": "HH224", "nombre": "Mecánica de Fluidos II", "ciclo": 6, "requisitos": ["HH223"]}, {"id": "HH113", "nombre": "Hidrología General", "ciclo": 6, "requisitos": ["HH223"]}, {"id": "EC611", "nombre": "Tecnología de Materiales", "ciclo": 6, "requisitos": ["EC125"]}, {"id": "SA427", "nombre": "Procesos Unitarios II", "ciclo": 7, "requisitos": ["SA426"]}, {"id": "SA416", "nombre": "Saneamiento Rural", "ciclo": 7, "requisitos": ["SA413", "HH224"]}, {"id": "EC411", "nombre": "Diseño de Estruct. Hidráulicas", "ciclo": 7, "requisitos": ["EC125"]}, {"id": "SA227", "nombre": "Aprovechamiento Aguas Subterráneas", "ciclo": 7, "requisitos": ["HH113"]}, {"id": "EE631", "nombre": "Instalaciones Eléctricas y Automatización", "ciclo": 7, "requisitos": ["F1413"]}, {"id": "SA126", "nombre": "Saneamiento Ambiental", "ciclo": 8, "requisitos": ["SA416"]}, {"id": "SA526", "nombre": "Máquinas y Equipos Sanitarios", "ciclo": 8, "requisitos": ["HH223"]}, {"id": "SA215", "nombre": "Abastecimiento de Agua I", "ciclo": 8, "requisitos": ["HH224", "SA227"]}, {"id": "SA516", "nombre": "Instalaciones Sanitarias en Edificaciones", "ciclo": 8, "requisitos": ["HH224"]}, {"id": "EC717", "nombre": "Procedimiento de Construcción", "ciclo": 8, "requisitos": ["EC611"]}, {"id": "SA465", "nombre": "Tratamiento de Desagües", "ciclo": 9, "requisitos": ["SA427"]}, {"id": "SA245", "nombre": "Alcantarillado y Drenaje Pluvial", "ciclo": 9, "requisitos": ["SA416"]}, {"id": "SA445", "nombre": "Tratamiento de Agua I", "ciclo": 9, "requisitos": ["SA215"]}, {"id": "SA216", "nombre": "Abastecimiento de Agua II", "ciclo": 9, "requisitos": ["SA215"]}, {"id": "SA517", "nombre": "Instalaciones Sanitarias Especiales", "ciclo": 9, "requisitos": ["SA516"]}, {"id": "SA475", "nombre": "Tratamiento Avanzado de Aguas Residuales", "ciclo": 10, "requisitos": ["SA465"]}, {"id": "SA446", "nombre": "Tratamiento de Agua II", "ciclo": 10, "requisitos": ["SA445"]}, {"id": "GA163", "nombre": "Innovación y Tesis I", "ciclo": 10, "requisitos": ["SA445", "SA465"]}, {"id": "SA921", "nombre": "Evaluación del Impacto Ambiental", "ciclo": 10, "requisitos": ["SA245", "SA216"]}, {"id": "SA235", "nombre": "Análisis de Redes y Fuentes de Agua", "ciclo": 10, "requisitos": ["SA216", "BIC01"]}];
+        const ramos = [
+            // 1er Ciclo
+            {"id": "BRN01", "nombre": "Redacción y comunicación", "ciclo": 1, "requisitos": []},
+            {"id": "BQU01", "nombre": "Química I", "ciclo": 1, "requisitos": []},
+            {"id": "BMA03", "nombre": "Álgebra Lineal", "ciclo": 1, "requisitos": []},
+            {"id": "BMA01", "nombre": "Cálculo Diferencial", "ciclo": 1, "requisitos": []},
+            {"id": "BIC01", "nombre": "Introducción a la computación", "ciclo": 1, "requisitos": []},
+            {"id": "AA215G", "nombre": "Geología", "ciclo": 1, "requisitos": []},
+
+            // 2do Ciclo
+            {"id": "SA312", "nombre": "Ecología", "ciclo": 2, "requisitos": ["BQU01"]},
+            {"id": "SA401", "nombre": "Química Sanitaria", "ciclo": 2, "requisitos": ["BQU01"]},
+            {"id": "BMA02", "nombre": "Cálculo Integral", "ciclo": 2, "requisitos": ["BMA01"]},
+            {"id": "BEG01", "nombre": "Economía General", "ciclo": 2, "requisitos": []},
+            {"id": "BF101", "nombre": "Física I", "ciclo": 2, "requisitos": []},
+            {"id": "AA237", "nombre": "Dibujo Técnico", "ciclo": 2, "requisitos": []},
+
+            // 3er Ciclo
+            {"id": "SA323", "nombre": "Microbiología Sanitaria I", "ciclo": 3, "requisitos": []},
+            {"id": "AA243", "nombre": "Fisicoquímica Aplicada", "ciclo": 3, "requisitos": ["BMA02", "SA401"]},
+            {"id": "AA241", "nombre": "Cálculo Multivariable", "ciclo": 3, "requisitos": ["BMA03", "BMA02"]},
+            {"id": "AA232", "nombre": "Bioestadística", "ciclo": 3, "requisitos": ["BMA02"]},
+            {"id": "AA234", "nombre": "Física II", "ciclo": 3, "requisitos": ["BF101"]},
+            {"id": "BEF01", "nombre": "Ética y Filosofía Política", "ciclo": 3, "requisitos": []},
+
+            // 4to Ciclo
+            {"id": "SA324", "nombre": "Microbiología Sanitaria II", "ciclo": 4, "requisitos": ["SA323"]},
+            {"id": "SA343", "nombre": "Epidemiología y Salud Pública", "ciclo": 4, "requisitos": ["SA323"]},
+            {"id": "EC115", "nombre": "Mecánica de Cuerpo Rígido", "ciclo": 4, "requisitos": ["AA234", "BMA02"]},
+            {"id": "MA153", "nombre": "Ecuaciones Diferenciales", "ciclo": 4, "requisitos": ["AA241"]},
+            {"id": "F1413", "nombre": "Física III", "ciclo": 4, "requisitos": ["AA234"]},
+            {"id": "BRN02", "nombre": "Realidad nacional, Constitución y DDHH", "ciclo": 4, "requisitos": []}, // Corrected ID from BRN01
+
+            // 5to Ciclo
+            {"id": "SA413", "nombre": "Análisis de Agua y Desagüe", "ciclo": 5, "requisitos": ["SA323"]},
+            {"id": "SA467", "nombre": "Manejo y Trat. de Residuos Sólidos", "ciclo": 5, "requisitos": ["SA312", "SA323"]}, // Added SA323 as per list
+            {"id": "HH223", "nombre": "Mecánica de Fluidos I", "ciclo": 5, "requisitos": ["AA241", "EC115"]},
+            {"id": "EC125", "nombre": "Resistencia de Materiales", "ciclo": 5, "requisitos": ["EC115"]},
+            {"id": "AA215T", "nombre": "Topografía", "ciclo": 5, "requisitos": ["AA215G", "AA237"]},
+
+            // 6to Ciclo
+            {"id": "SA426", "nombre": "Procesos Unitarios I", "ciclo": 6, "requisitos": ["SA323", "SA413"]},
+            {"id": "SA468", "nombre": "Residuos Hospitalarios y Peligrosos", "ciclo": 6, "requisitos": ["SA467"]},
+            {"id": "HH224", "nombre": "Mecánica de Fluidos II", "ciclo": 6, "requisitos": ["HH223"]},
+            {"id": "HH113", "nombre": "Hidrología General", "ciclo": 6, "requisitos": ["HH223"]},
+            {"id": "EC611", "nombre": "Tecnología de Materiales", "ciclo": 6, "requisitos": ["EC125"]},
+
+            // 7mo Ciclo
+            {"id": "SA427", "nombre": "Procesos Unitarios II", "ciclo": 7, "requisitos": ["SA426"]},
+            {"id": "SA416", "nombre": "Saneamiento Rural", "ciclo": 7, "requisitos": ["SA413", "HH224"]},
+            {"id": "EC411", "nombre": "Diseño de Estruct. Hidráulicas", "ciclo": 7, "requisitos": ["EC125"]},
+            {"id": "SA227", "nombre": "Aprovechamiento Aguas Subterráneas", "ciclo": 7, "requisitos": ["HH113"]},
+            {"id": "EE631", "nombre": "Instalaciones Eléctricas y Automatización", "ciclo": 7, "requisitos": ["F1413"]},
+
+            // 8vo Ciclo
+            {"id": "SA126", "nombre": "Saneamiento Ambiental", "ciclo": 8, "requisitos": ["SA416"]},
+            {"id": "SA526", "nombre": "Máquinas y Equipos Sanitarios", "ciclo": 8, "requisitos": ["HH223"]},
+            {"id": "SA215", "nombre": "Abastecimiento de Agua I", "ciclo": 8, "requisitos": ["HH224", "SA227"]},
+            {"id": "SA516", "nombre": "Instalaciones Sanitarias en Edificaciones", "ciclo": 8, "requisitos": ["HH224"]},
+            {"id": "EC717", "nombre": "Procedimiento de Construcción", "ciclo": 8, "requisitos": ["EC611"]},
+
+            // 9no Ciclo
+            {"id": "SA465", "nombre": "Tratamiento de Desagües", "ciclo": 9, "requisitos": ["SA427"]},
+            {"id": "SA245", "nombre": "Alcantarillado y Drenaje Pluvial", "ciclo": 9, "requisitos": ["SA416"]},
+            {"id": "SA445", "nombre": "Tratamiento de Agua I", "ciclo": 9, "requisitos": ["SA215"]},
+            {"id": "SA216", "nombre": "Abastecimiento de Agua II", "ciclo": 9, "requisitos": ["SA215"]},
+            {"id": "SA517", "nombre": "Instalaciones Sanitarias Especiales", "ciclo": 9, "requisitos": ["SA516"]},
+
+            // 10mo Ciclo
+            {"id": "SA475", "nombre": "Tratamiento Avanzado de Aguas Residuales", "ciclo": 10, "requisitos": ["SA465"]},
+            {"id": "SA446", "nombre": "Tratamiento de Agua II", "ciclo": 10, "requisitos": ["SA445"]},
+            {"id": "GA163", "nombre": "Innovación y Tesis I", "ciclo": 10, "requisitos": ["SA445", "SA465"]},
+            {"id": "SA921", "nombre": "Evaluación del Impacto Ambiental", "ciclo": 10, "requisitos": ["SA245", "SA216"]},
+            {"id": "SA235", "nombre": "Análisis de Redes y Fuentes de Agua", "ciclo": 10, "requisitos": ["SA216", "BIC01"]}
+        ];
+
         const container = document.getElementById('container');
         const progressBar = document.getElementById('progressBar');
         const progressText = document.getElementById('progress-text');
